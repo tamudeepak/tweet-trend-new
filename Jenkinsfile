@@ -11,9 +11,9 @@ environment {
     stages {
         stage("build"){
             steps {
-                "#########Build started#####"
+                echo "#########Build started#####"
                 sh 'mvn clean deploy -Dmaven.test.skip=true'
-                "#########Build completed#####"
+                echo "#########Build completed#####"
             }
         }
         stage("test"){
