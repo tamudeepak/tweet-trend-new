@@ -33,38 +33,15 @@ pipeline {
             }
         }
         stage('Dev') {
-            when {
-                expression {
-                    currentBuild.result == 'SUCCESS'
-                }
-            }
             steps {
                 echo "Deploying to Dev environment..."
                 // Add deployment steps for Dev environment
             }
         }
         stage('Prod') {
-            when {
-                expression {
-                    currentBuild.result == 'SUCCESS'
-                }
-            }
             steps {
-                script {
-                    def userInput = input(
-                        id: 'deployProd',
-                        message: 'Deploy to Prod? (yes/no)',
-                        parameters: [
-                            [$class: 'ChoiceParameter', choiceType: 'string', name: 'Confirmation', choices: 'yes\nno']
-                        ]
-                    )
-                    if (userInput == 'yes') {
-                        echo "Deploying to Prod environment..."
-                        // Add deployment steps for Prod environment
-                    } else {
-                        echo "Skipping deployment to Prod environment."
-                    }
-                }
+                echo "Deploying to Prod environment..."
+                // Add deployment steps for Prod environment
             }
         }
     }
