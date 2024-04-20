@@ -36,12 +36,15 @@ pipeline {
             steps {
                 echo "Deploying to Dev environment..."
                 // Add deployment steps for Dev environment
+                // Verify deployment in Dev
             }
         }
         stage('Prod') {
             steps {
+                input "Deploy to Prod? Press 'Proceed' to deploy or 'Abort' to cancel."
                 echo "Deploying to Prod environment..."
                 // Add deployment steps for Prod environment
+                // Verify deployment in Prod
             }
         }
     }
