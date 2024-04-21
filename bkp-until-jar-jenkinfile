@@ -1,6 +1,4 @@
 def registry = 'https://neejyodee.jfrog.io/'
-def imageName = 'neejyodee.jfrog.io/artifactory/niku-docker-local/niku'
-def version   = '2.1.2'
 pipeline {
     agent {
         node {
@@ -58,26 +56,6 @@ pipeline {
                     echo '<--------------- Jar Publish Ended --------------->'              
                 }
             }   
-        }
-        stage(" Docker Build ") {
-            steps {
-                script {
-                    echo '<--------------- Docker Build Started --------------->'
-                    app = docker.build(imageName+":"+version)
-                    echo '<--------------- Docker Build Ends --------------->'
-                }
-            }
-        }
-        stage (" Docker Publish on JFrog"){
-            steps {
-                script {
-                    echo '<--------------- Docker Publish Started --------------->'  
-                    docker.withRegistry(registry, 'Jfrog-artifacts-Jenkins-creds'){
-                        app.push()
-                    }    
-                    echo '<--------------- Docker Publish Ended --------------->'  
-                }
-            }
         }
     }
 }
