@@ -72,7 +72,7 @@ pipeline {
             steps {
                 script {
                     echo '<--------------- Docker Publish Started --------------->'  
-                    docker.withRegistry(niku-docker-local, 'Jfrog-artifacts-Jenkins-creds'){
+                    docker.withRegistry(registry, 'Jfrog-artifacts-Jenkins-creds'){
                         app.push()
                     }    
                     echo '<--------------- Docker Publish Ended --------------->'  
