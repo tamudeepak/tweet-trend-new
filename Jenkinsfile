@@ -1,6 +1,6 @@
 def registry = 'https://neejyodee.jfrog.io/'
 def imageName = 'neejyodee.jfrog.io/niku-docker-local/niku'
-def version   = '2.1.2'
+def version   = '2.1.3'
 pipeline {
     agent {
         node {

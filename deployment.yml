@@ -17,7 +17,7 @@ spec:
       - name: jfrogcred
       containers:
       - name:  valaxy-rtp
-        image: neejyodee.jfrog.io/niku-docker/niku:2.1.2
+        image: neejyodee.jfrog.io/niku-docker/niku:2.1.3
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
