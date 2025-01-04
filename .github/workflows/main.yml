@@ -1,0 +1,46 @@
+name: Build and Package PHP Project
+
+# When to trigger the workflow
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests to the main branch
+
+# Define the jobs to run
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use GitHub's hosted Linux runner
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3  # Fetch the repository code
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2  # Configure PHP environment
+      with:
+        php-version: '7.4'  # Match your project's PHP version
+        extensions: mysqli  # Add MySQLi extension for database connection
+
+    - name: Install Composer dependencies (if composer.json exists)
+      run: |
+        if [ -f composer.json ]; then
+          composer install --no-dev --optimize-autoloader
+        else
+          echo "No composer.json found, skipping dependency installation."
+        fi
+
+    - name: Package application
+      run: |
+        mkdir -p artifact  # Create a directory for packaging
+        cp -R * artifact/  # Copy all files into the directory
+        cd artifact && zip -r ../php_project.zip .  # Zip the contents
+      shell: bash
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3  # Save the packaged ZIP as an artifact
+      with:
+        name: php_project  # Name of the artifact
+        path: php_project.zip  # Path to the ZIP file
